@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const connection = async function() {
-	await mysql.createConnection({
+	return await mysql.createConnection({
 		socketPath: '/var/run/mysqld/mysqld.sock',
 		user: process.env.DB_USER,
 		password: process.env.DB_PASSWORD,

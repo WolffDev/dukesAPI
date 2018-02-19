@@ -9,6 +9,7 @@
   "author": "David Wolff",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^5.0.0"
+    "dotenv": "^5.0.0",
+    "mysql2": "^1.5.2"
   }
 }

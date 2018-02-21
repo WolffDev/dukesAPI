@@ -13,7 +13,7 @@ var consoleLog = config.logging ? console.log.bind(console) : noop;
 
 var logger = {
   log: function() {
-    var tag = '[ ✨ LOG ✨ ]'.green;
+    var tag = '[✨  LOG ✨ ]'.green;
     // arguments is an array like object with all the passed
     // in arguments to this function
     var args = Object.values(arguments)
@@ -24,7 +24,7 @@ var logger = {
           var string = JSON.stringify(arg, null, 2);
           return tag + '  ' + string.cyan;
         } else {
-          return tag + '  ' + arg.cyan;
+          return tag + ' ' + arg.cyan;
         }
       });
 
@@ -38,8 +38,8 @@ var logger = {
     var args = Object.values(arguments)
       .map(function(arg) {
         arg = arg.stack || arg;
-        var name = arg.name || '[ ❌ ERROR ❌ ]';
-        var log = name.yellow + '  ' + arg.red;
+        var name = arg.name || '[❌  ERROR ❌ ]';
+        var log = name.yellow + ' ' + arg.red;
         return log;
       });
 

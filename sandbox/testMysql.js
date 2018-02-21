@@ -15,7 +15,13 @@ const connect = function() {
 async function main() {
 	const connection = await connect();
 	const test = [1,2,3];
-	return await connection.execute('SELECT title, body FROM app_posts WHERE soft_delete = 0 AND category_id IN('+test+')');
+	// return await connection.execute('SELECT title, body FROM app_posts WHERE soft_delete = 0 AND category_id IN('+test+')');
+	return await connection.query({
+			sql: 'SELECT title, body FROM app_posts WHERE soft_delete = ? AND category_id IN(?)',
+			timeout: 40000 // 40s
+		},
+		[0, test]
+	)
 }
 
 main()

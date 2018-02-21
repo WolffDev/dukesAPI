@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const router = require('express').Router();
 
+const api = require('./api/api');
+
 const config = require('./config/config');
 require('./middleware/appMiddleware')(app);
 
-app.use('/',(req, res) => {
-	res.status(200).json({test:"YAY"});
-})
+app.use('/api', api);
 
 
 // Error handling

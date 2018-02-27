@@ -14,11 +14,11 @@ let newToken = jwt.sign({
 	data: 'data'
 }, process.env.JWT, (err, token) => {
 	if(err) return console.log(err);
-	console.log(token);
+	console.log('Ny token:',token);
 });
 
 jwt.verify(token2, process.env.JWT, {issuer: 'https://dukesdenmark.dk'}, (err, decoded) => {
-	if(err) return console.log(err.name);
+	if(err) return console.log(err);
 	console.log(decoded);
 })
 

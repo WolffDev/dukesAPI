@@ -14,7 +14,7 @@ const connect = function() {
 
 async function main() {
 	const connection = await connect();
-	const test = [1,2,3];
+	const test = [4];
 	// return await connection.execute('SELECT title, body FROM app_posts WHERE soft_delete = 0 AND category_id IN('+test+')');
 	return await connection.query({
 			sql: 'SELECT title, body FROM app_posts WHERE soft_delete = ? AND category_id IN(?)',
@@ -24,8 +24,29 @@ async function main() {
 	)
 }
 
-main()
-	.then( res =>  console.log(res[0]))
-	.catch( err => console.log(err))
+async function insert() {
+	const connection = await connect();
+	const insertData = {
+		title: '10; DROP TABLE app_auth /',
+		body: 'Body text from node!!!',
+		category_id: 4,
+		user_id: 1
+	};
+	// return await connection.execute('SELECT title, body FROM app_posts WHERE soft_delete = 0 AND category_id IN('+test+')');
+	return await connection.query({
+			sql: 'INSERT INTO app_posts SET ?',
+			timeout: 40000 // 40s
+		},
+		insertData
+	)
+}
 
-console.log(randToken.generate(50));
+// main()
+// 	.then( res =>  console.log(res))
+// 	.catch( err => console.log(err))
+
+// console.log(randToken.generate(50));
+
+insert()
+	.then( res => console.log(res))
+	.catch( err => console.log(err))

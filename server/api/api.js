@@ -1,11 +1,12 @@
-const logger = require('../util/logger');
-let router = require('express').Router();
+const router = require('express').Router();
 
-logger.log('test')
+const logger = require('../util/logger');
+
+
 router.get('/', (req, res) => {
 	res.status(200).send({
 		message: 'YAYA it works',
-		headers: req.headers
+		test: process.env.JWT_EXPIRE
 	})
 })
 module.exports = router;

@@ -23,7 +23,9 @@ app.use(function(err, req, res, next) {
 				message: err.message
 			});
 			break;
-
+		case 'TokenRefreshNotAllowed':
+			res.status(401).send(err);
+			break;
 
 	
 		default:

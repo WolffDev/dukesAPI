@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
 const config = require('../config/config');
-const authModel = require('./authModel');
+const AuthModel = require('./authModel');
 const logger = require('../util/logger');
 
 // middleware that accepts token in URI query and set it to the request header
@@ -25,24 +24,42 @@ exports.verifyToken = () => {
 			// signing new token => setting new req.body = newToken, should be used in the response
 			if(decoded) {
 				logger.log('token still valid');
-				logger.log(test);
-				req.userId = decoded.user.id;
-				req.authLevel = decoded.user.auth_level;
+				let id = decoded.data.user.id;
+				req.user_id = id;
+				req.auth_level = decoded.data.user.auth_level;
+				logger.log('before signNewToken');
 				req.body.newToken = signNewToken(decoded);
 				next();
 				return;
 			}
+
 			// Token is valid but EXPIRED
 			// Decoding user_id and auth_level for further use in request
 			// signing new token => setting new req.body = newToken, should be used in the response
 			if(err.name === 'TokenExpiredError') {
 				logger.log('token expired')
 				decoded = jwt.decode(token)
-				req.userId = decoded.user.id;
-				req.authLevel = decoded.user.auth_level;
-				req.body.newToken = signNewToken(decoded);
-				next();
-				return;
+				let userId = decoded.data.user.id;
+				let refreshToken = decoded.data.user.refresh_token;
+				AuthModel.checkRefreshToken(userId, refreshToken)
+					.then( modelRes => {
+						// res.send(modelRes[0]);return;
+						if(modelRes[0].length == 0) {
+							next({
+								type: 'error',
+								name: 'TokenRefreshNotAllowed',
+								message: 'User is not authorized to refresh token. Contact the administrator'
+							})
+							return;
+						} else {
+							req.user_id = userId;
+							req.auth_level = decoded.data.user.auth_level;
+							req.body.newToken = signNewToken(decoded);
+							next();
+							return;
+						}
+					})
+					.catch(err => next(err));
 			}
 			// Invalid token => calling next() for error handling, and passing the error
 			if(err.name !== 'TokenExpiredError') next(err);
@@ -58,10 +75,19 @@ function signNewToken(decodedToken) {
 		iat: Math.floor(Date.now() / 1000),
 		nbf: Math.floor(Date.now() / 1000),
 		exp: Math.floor(Date.now() / 1000) + parseInt(process.env.JWT_EXPIRE),
-		user: {
-			id: decodedToken.user.id,
-			auth_level: decodedToken.user.auth_level
+		data: {
+			user: {
+				id: decodedToken.data.user.id,
+				auth_level: decodedToken.data.user.auth_level,
+				refresh_token: decodedToken.data.user.refresh_token
+			}
 		}
 	}, process.env.JWT);
 	return newToken;
 }
+
+// function generateToken(id) {
+// 	generateRefreshToken(id)
+// 		.then(res => res.insertId)
+// 		.catch(err => next(err));
+// }

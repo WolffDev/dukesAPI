@@ -29,6 +29,9 @@ app.use(function(err, req, res, next) {
 		case 'AuthLevelIncorrect':
 			res.status(401).send(err);
 			break;
+		case 'ValidationError':
+			res.status(401).send(err);
+			break;
 
 	
 		default:

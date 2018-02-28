@@ -13,5 +13,8 @@ exports.get = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
-	res.status(200).send(req.body);
+	res.status(200).send({
+		newToken: req.newToken,
+		category: req.body
+	});
 }

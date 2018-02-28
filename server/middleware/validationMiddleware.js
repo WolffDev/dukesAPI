@@ -1,23 +1,6 @@
-const { body, validationResult, checkSchema } = require('express-validator/check');
-const { matchedData, sanitize } = require('express-validator/filter');
 const logger = require('../util/logger');
 const Joi = require('joi');
-const {categoryPostSchema} = require('../api/schema/forumSchema');
-
-// exports.categoryPost = [
-// 	body('title').isLength({min:1}).exists().trim().toString(),
-// 	body('body').isLength({min:1}).exists().trim().toString(),
-// 	body('user_name').isLength({min:1}).exists().trim().toString(),
-// 	body('category_id').isLength({min:1}).isInt().exists().trim().toInt(),
-// 	body('user_id').isLength({min:1}).isInt().exists().trim().toInt(),
-// 	(req, res, next) => {
-// 		const errors = validationResult(req);
-// 		if (!errors.isEmpty()) {
-// 			return res.status(422).send(errors.mapped());
-// 		}
-// 		next();
-// 	}
-// ];
+const { categoryPostSchema } = require('../api/schema/forumSchema');
 
 exports.categoryPost = (req, res, next) => {
 	Joi.validate(req.body, categoryPostSchema, (err, value) => {
@@ -27,7 +10,13 @@ exports.categoryPost = (req, res, next) => {
 			message: 'Check the post body for errors',
 			details: err
 		});
-		// logger.log(value);
+		// logger.log(req.body);
+		const oldBody = req.body;
+		const newBody = {};
+		for(let prop in oldBody) {
+			newBody[prop] = oldBody[prop].trim();
+		}
+		req.body = newBody;
 		next();
 	})
 }

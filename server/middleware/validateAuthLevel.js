@@ -1,6 +1,7 @@
 const logger = require('../util/logger');
 exports.categoryPostAuthLevel = (req, res, next) => {
-	if(req.body.category_id > req.auth_level) {
+	logger.log('from auth level')
+	if(req.body.auth_level.trim() > req.auth_level) {
 		return next({
 			type: 'error',
 			name: 'AuthLevelIncorrect',

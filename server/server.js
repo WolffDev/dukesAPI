@@ -26,6 +26,9 @@ app.use(function(err, req, res, next) {
 		case 'TokenRefreshNotAllowed':
 			res.status(401).send(err);
 			break;
+		case 'AuthLevelIncorrect':
+			res.status(401).send(err);
+			break;
 
 	
 		default:

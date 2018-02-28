@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator/check');
+const { body, validationResult, checkSchema } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 const logger = require('../util/logger');
 
@@ -18,13 +18,16 @@ const logger = require('../util/logger');
 // }
 
 exports.categoryPost = [
-	body('user_id').isNumeric(),
+	body('title').isLength({min:1}).exists().trim().toString(),
+	body('body').isLength({min:1}).exists().trim().toString(),
+	body('user_name').isLength({min:1}).exists().trim().toString(),
+	body('category_id').isLength({min:1}).isInt().exists().trim().toInt(),
+	body('user_id').isLength({min:1}).isInt().exists().trim().toInt(),
 	(req, res, next) => {
 		const errors = validationResult(req);
-		logger.log(errors)
 		if (!errors.isEmpty()) {
 			return res.status(422).send(errors.mapped());
 		}
 		next();
 	}
-]
+];

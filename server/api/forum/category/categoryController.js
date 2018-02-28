@@ -5,7 +5,7 @@ exports.get = (req, res, next) => {
 		.then(categories => {
 			if(categories[0].length == 0) return;
 			res.status(200).send({
-				newToken: req.body.newToken,
+				newToken: req.newToken,
 				categories: categories[0]
 			});
 		})

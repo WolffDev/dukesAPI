@@ -28,7 +28,7 @@ exports.verifyToken = () => {
 				req.user_id = id;
 				req.auth_level = decoded.data.user.auth_level;
 				logger.log('before signNewToken');
-				req.body.newToken = signNewToken(decoded);
+				req.newToken = signNewToken(decoded);
 				next();
 				return;
 			}
@@ -54,7 +54,7 @@ exports.verifyToken = () => {
 						} else {
 							req.user_id = userId;
 							req.auth_level = decoded.data.user.auth_level;
-							req.body.newToken = signNewToken(decoded);
+							req.newToken = signNewToken(decoded);
 							next();
 							return;
 						}

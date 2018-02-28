@@ -62,7 +62,7 @@ exports.verifyToken = () => {
 					.catch(err => next(err));
 			}
 			// Invalid token => calling next() for error handling, and passing the error
-			if(err.name !== 'TokenExpiredError') next(err);
+			if(err.name !== 'TokenExpiredError') return next(err);
 		})
 		
 	};

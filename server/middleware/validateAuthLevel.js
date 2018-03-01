@@ -1,11 +1,10 @@
 const logger = require('../util/logger');
-exports.categoryPostAuthLevel = (req, res, next) => {
-	logger.log('from auth level')
+module.exports = (req, res, next) => {
 	if(req.body.auth_level.trim() > req.auth_level) {
 		return next({
 			type: 'error',
 			name: 'AuthLevelIncorrect',
-			message: 'You are authorized to the action you just tried'
+			message: 'Your authentication level is to low'
 		})
 	}
 	return next();

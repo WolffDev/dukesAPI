@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const validate = require('../../../middleware/validationMiddleware');
-const authLevel = require('../../../middleware/validateAuthLevel').categoryPostAuthLevel;
+const authLevel = require('../../../middleware/validateAuthLevel');
 
 
 const logger = require('../../../util/logger');

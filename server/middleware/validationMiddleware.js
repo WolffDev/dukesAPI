@@ -11,12 +11,6 @@ exports.categoryPost = (req, res, next) => {
 			details: err
 		});
 		// logger.log(req.body);
-		const oldBody = req.body;
-		const newBody = {};
-		for(let prop in oldBody) {
-			newBody[prop] = oldBody[prop].trim();
-		}
-		req.body = newBody;
 		next();
 	})
 }

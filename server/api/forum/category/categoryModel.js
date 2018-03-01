@@ -8,6 +8,13 @@ exports.getCategories = async (auth_level) => {
 	}, auth_level)
 }
 
+exports.newCategory = async (category) => {
+	const connection = await connect();
+	return await connection.query({
+		sql: 'INSERT INTO app_categories SET ?',
+		timeout: 30000 // 30s
+	}, category)
+};
 
 const connect = function() {
 	return mysql.createConnection({

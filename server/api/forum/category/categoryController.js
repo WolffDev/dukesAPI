@@ -13,8 +13,12 @@ exports.get = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
-	res.status(200).send({
-		newToken: req.newToken,
-		category: req.body
-	});
+	Categories.newCategory(req.body)
+		.then( category => {
+			if(category[0].length == 0) return;
+			res.status(200).send({
+				newToken: req.newToken,
+				categoryId: category[0].insertId
+			});
+		})
 }

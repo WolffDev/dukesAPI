@@ -8,7 +8,7 @@ const controller = require('./categoryController');
 
 router.route('/')
 	.get(controller.get)
-	.post([validate.categoryPost, authLevel], controller.post)
+	.post([validate.categoryPost, authLevel()], controller.post)
 
 
 

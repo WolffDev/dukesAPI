@@ -32,6 +32,9 @@ app.use(function(err, req, res, next) {
 		case 'ValidationError':
 			res.status(401).send(err);
 			break;
+		case 'PostAuthTooLow':
+			res.status(401).send(err);
+			break;
 
 	
 		default:

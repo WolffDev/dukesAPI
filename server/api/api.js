@@ -6,7 +6,7 @@ const logger = require('../util/logger');
 
 // Just for testing!!!
 router.get('/', verifyToken(),  (req, res, next) => {
-	res.status(200).send(req.body);
+	res.status(200).send("/ virker");
 })
 
 router.use('/categories', verifyToken(), categoriesRouter);

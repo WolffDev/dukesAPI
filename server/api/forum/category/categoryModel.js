@@ -3,32 +3,48 @@ const pool = require('../../../config/pool');
 const logger = require('../../../util/logger');
 // const mysql = require('mysql2/promise');
 
-function conn() {
-	return new Promise( (resolve, reject) => {
-		pool.getConnection( (err, connection) => {
-			if(err) {
-				reject(err)
-			} else {
-				resolve(connection)
-			}
-		});
-	});
-}
+// function conn() {
+// 	return new Promise( (resolve, reject) => {
+// 		pool.getConnection( (err, connection) => {
+// 			if(err) {
+// 				reject(err)
+// 			} else {
+// 				resolve(connection)
+// 			}
+// 		});
+// 	});
+// }
+
+// function queryData(q, data = []) {
+// 	return new Promise( (resolve, reject) => {
+// 		conn()
+// 			.then( connection => {
+// 				connection.query(q, data, (err, results, fields) => {
+// 					connection.release()
+// 					if(err) {
+// 						reject(err)
+// 					} else {
+// 						resolve(results)
+// 					}
+// 				});
+// 			})
+// 			.catch( err => logger.log(err));
+// 	})
+// }
 
 function queryData(q, data = []) {
-	return new Promise( (resolve, reject) => {
-		conn()
-			.then( connection => {
-				connection.query(q, data, (err, results, fields) => {
-					connection.release()
-					if(err) {
-						reject(err)
-					} else {
-						resolve(results)
-					}
-				});
+	return new Promise((resolve, reject) => {
+		pool.getConnection((err, connection) => {
+			if(err){
+				connection.release();
+				reject(err);
+			}
+			connection.query(q, data, (err, results, fields) => {
+				connection.release();
+				if(err) reject(err);
+				resolve(results);
 			})
-			.catch( err => logger.log(err));
+		})
 	})
 }
 

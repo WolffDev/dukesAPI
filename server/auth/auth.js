@@ -85,9 +85,3 @@ function signNewToken(decodedToken) {
 	}, process.env.JWT);
 	return newToken;
 }
-
-// function generateToken(id) {
-// 	generateRefreshToken(id)
-// 		.then(res => res.insertId)
-// 		.catch(err => next(err));
-// }

@@ -1,5 +1,5 @@
 const config = require('./config');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const pool = mysql.createPool({
 	// socketPath: config.db.socket,

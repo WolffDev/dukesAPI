@@ -29,16 +29,61 @@ exports.findById = (id, auth_level) => {
 			auth_level <= ? 
 		AND
 			soft_delete = 0
-		LIMIT 1`, 
+		LIMIT 1
+		`, 
 		[id, auth_level]
 	)
 }
 
 exports.getAll = (auth_level) => {
-	// const {results: [r]} = 
-	return queryData('SELECT category_id, title FROM app_categories WHERE auth_level <= ? AND soft_delete = 0', auth_level);
+	return queryData(`
+		SELECT 
+			category_id, 
+			title 
+		FROM 
+			app_categories 
+		WHERE 
+			auth_level <= ? 
+		AND soft_delete = 0
+		`, 
+		auth_level
+	);
 }
 
 exports.save = (category) => {
-	return queryData('INSERT INTO app_categories SET ?', category);
+	return queryData(`
+		INSERT INTO
+			app_categories 
+		SET ?
+		`, 
+		category
+	);
+}
+
+exports.update = (category, id) => {
+	return queryData(`
+		UPDATE 
+			app_categories 
+		SET 
+			?
+		WHERE
+			category_id = ?
+		`, 
+		[category, id]
+	)
+}
+
+exports.remove = (id) => {
+	return queryData(`
+		UPDATE
+			app_categories
+		SET
+			soft_delete = 1
+		WHERE
+			category_id = ?
+		AND
+			soft_delete = 0
+		`, 
+		id
+	)
 }

@@ -1,12 +1,9 @@
-const Categories = require('./categoryModel');
+const Category = require('./categoryModel');
 const logger = require('../../../util/logger');
 
 exports.get = (req, res, next) => {
-	Categories.getCategories(req.auth_level)
+	Category.getAll(req.auth_level)
 		.then( categories => {
-			logger.log('false return from controller model')
-			// console.log(categories);
-			if(categories[0].length == 0) return;
 			res.status(200).send({
 				newToken: req.newToken,
 				categories: categories
@@ -15,13 +12,39 @@ exports.get = (req, res, next) => {
 		.catch(err => console.log(err))
 }
 
-exports.post = (req, res, next) => {
-	Categories.newCategory(req.body)
+exports.getOne = (req, res, next) => {
+	Category.findById(req.params.id, req.auth_level)
 		.then( category => {
-			if(category[0].length == 0) return;
-			res.status(200).send({
-				newToken: req.newToken,
-				categoryId: category[0].insertId
+			if(category.length == 0) return next({
+				type: 'error',
+				name: 'NoCategoryExists',
+				message: 'Wrong ID, there is no existing category with the given ID'
 			});
+			res.send(category)
 		})
+		.catch(err => next(err))
+}
+
+exports.post = (req, res, next) => {
+	Category.save(req.body)
+		.then( category => {
+			if(category.affectedRows == 0) {
+				next({
+					type: "error",
+					name: "PostCategoryFailed",
+					message: "There was an error creating the category. Try again or contact the administrator with the error name"
+				})
+			} else {
+				res.status(201).send({
+					newToken: req.newToken,
+					type: "success",
+					message: "New category created"
+				})
+			}
+		})
+		.catch( err => next(err))
+}
+
+exports.put = (req, res, next) => {
+	
 }

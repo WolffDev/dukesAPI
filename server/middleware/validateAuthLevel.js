@@ -6,6 +6,7 @@
 const logger = require('../util/logger');
 module.exports = (authLevel = 4) => {
 	return (req, res, next) => {
+		console.log(req.auth_level);
 		if(req.auth_level < authLevel) {
 			return next({
 				type: 'error',

@@ -23,21 +23,23 @@ app.use(function(err, req, res, next) {
 				message: err.message
 			});
 			break;
-		case 'TokenRefreshNotAllowed':
-			res.status(401).send(err);
-			break;
-		case 'AuthLevelIncorrect':
-			res.status(401).send(err);
-			break;
-		case 'ValidationError':
-			res.status(401).send(err);
-			break;
-		case 'PostAuthTooLow':
-			res.status(401).send(err);
-			break;
+		// case 'TokenRefreshNotAllowed':
+		// 	res.status(401).send(err);
+		// 	break;
+		// case 'AuthLevelIncorrect':
+		// 	res.status(401).send(err);
+		// 	break;
+		// case 'ValidationError':
+		// 	res.status(401).send(err);
+		// 	break;
+		// case 'PostAuthTooLow':
+		// 	res.status(401).send(err);
+		// 	break;
+		// case 'PostCategoryFailed'
 
 	
 		default:
+			res.status(400).send(err);
 			break;
 	}
 

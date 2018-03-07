@@ -8,6 +8,10 @@ router.route('/')
 	.get(controller.get)
 	.post([validate.categoryPost, authLevel()], controller.post)
 
+router.route('/:id')
+	.get(validate.idIsNumber, controller.getOne)
+	.put([validate.categoryPost, authLevel()], controller.put)
+
 
 
 module.exports = router;

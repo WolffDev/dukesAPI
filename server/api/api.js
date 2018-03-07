@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const verifyToken = require('../auth/auth').verifyToken;
-const categoriesRouter = require('./forum/category/categoryRoutes');
+const categoryRouter = require('./forum/category/categoryRoutes');
 
 const logger = require('../util/logger');
 
@@ -9,7 +9,7 @@ router.get('/', verifyToken(),  (req, res, next) => {
 	res.status(200).send("/ virker");
 })
 
-router.use('/categories', verifyToken(), categoriesRouter);
+router.use('/category', verifyToken(), categoryRouter);
 
 
 

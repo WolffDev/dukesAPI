@@ -1,14 +1,5 @@
 const pool = require('../config/pool');
 
-// exports.checkRefreshToken = async (id, refreshToken) => {
-// 	let data = [id, refreshToken];
-// 	const connection = await connect();
-// 	return await connection.query({
-// 		sql: 'SELECT token_id FROM app_refresh_tokens WHERE user_id = ? AND token = ? AND active = 1',
-// 		timeout: 30000
-// 	}, data)
-// }
-
 exports.checkRefreshToken = (id, refreshToken) => {
 	return new Promise((resolve, reject) => {
 		pool.getConnection((err, connection) => {

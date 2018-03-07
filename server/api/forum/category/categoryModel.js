@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const pool = require('../../../config/pool');
 const logger = require('../../../util/logger');
 
@@ -18,7 +17,28 @@ function queryData(q, data = []) {
 	})
 }
 
-exports.getCategories = async (auth_level) => {
+exports.findById = (id, auth_level) => {
+	return queryData(`
+		SELECT 
+			title, auth_level 
+		FROM 
+			app_categories 
+		WHERE 
+			category_id = ? 
+		AND 
+			auth_level <= ? 
+		AND
+			soft_delete = 0
+		LIMIT 1`, 
+		[id, auth_level]
+	)
+}
+
+exports.getAll = (auth_level) => {
 	// const {results: [r]} = 
 	return queryData('SELECT category_id, title FROM app_categories WHERE auth_level <= ? AND soft_delete = 0', auth_level);
+}
+
+exports.save = (category) => {
+	return queryData('INSERT INTO app_categories SET ?', category);
 }

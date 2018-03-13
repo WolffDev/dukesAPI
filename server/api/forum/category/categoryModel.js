@@ -35,7 +35,7 @@ exports.findById = (id, auth_level) => {
 	)
 }
 
-exports.getAll = (auth_level) => {
+exports.getAll = (authLevel) => {
 	return queryData(`
 		SELECT 
 			category_id, 
@@ -46,7 +46,7 @@ exports.getAll = (auth_level) => {
 			auth_level <= ? 
 		AND soft_delete = 0
 		`, 
-		auth_level
+		authLevel
 	);
 }
 
@@ -60,7 +60,7 @@ exports.save = (category) => {
 	);
 }
 
-exports.update = (category, id) => {
+exports.update = (category, id, authLevel) => {
 	return queryData(`
 		UPDATE 
 			app_categories 
@@ -68,12 +68,16 @@ exports.update = (category, id) => {
 			?
 		WHERE
 			category_id = ?
+		AND
+			soft_delete = 0
+		AND
+			auth_level <= ?
 		`, 
-		[category, id]
+		[category, id, authLevel]
 	)
 }
 
-exports.remove = (id) => {
+exports.remove = (id, authLevel) => {
 	return queryData(`
 		UPDATE
 			app_categories
@@ -83,7 +87,9 @@ exports.remove = (id) => {
 			category_id = ?
 		AND
 			soft_delete = 0
+		AND
+			auth_level <= ?
 		`, 
-		id
+		[id, authLevel]
 	)
 }

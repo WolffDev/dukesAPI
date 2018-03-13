@@ -42,6 +42,8 @@ app.use(function(err, req, res, next) {
 			res.status(400).send(err);
 			break;
 	}
+	// TODO: handle unhandle errors from MYSQL 
+	// 'There was and error - contact the administrator and be sure you can reproduce the steps you took, to reach to this error'
 
   logger.error(err);
 });

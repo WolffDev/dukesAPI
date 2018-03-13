@@ -49,13 +49,13 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-	Category.update(req.body, req.params.id)
+	Category.update(req.body, req.params.id, req.auth_level)
 		.then( result => {
 			if(result.affectedRows == 0) {
 				next({
 					type: "error",
 					name: "UpdateWrongId",
-					message: "There was an error updating the category. Either the ID does not exists or another error occured"
+					message: "There was an error updating the category. Either the ID does not exists, your authorization is to low or another error occured"
 				})
 			} else {
 				res.status(200).send({
@@ -69,13 +69,13 @@ exports.put = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-	Category.remove(req.params.id)
+	Category.remove(req.params.id, req.auth_level)
 		.then( result => {
 			if(result.affectedRows == 0) {
 				next({
 					type: "error",
 					name: "DeleteWrongId",
-					message: "There was an error deleting the category. Either the ID does not exists or another error occured"
+					message: "There was an error deleting the category. Either the ID does not exists, your authorization is to low or another error occured"
 				})
 			} else {
 				res.status(200).send({

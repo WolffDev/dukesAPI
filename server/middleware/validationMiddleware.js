@@ -3,7 +3,7 @@ const Joi = require('joi');
 const { 
 	categoryPostSchema, 
 	idIsNumber, 
-	newPostSchema, 
+	postSchema, 
 	getPostByCategory 
 } = require('../api/schema/forumSchema');
 
@@ -39,8 +39,8 @@ exports.idIsNumber = (req, res, next) => {
 	})
 }
 
-exports.newPost = (req, res, next) => {
-	Joi.validate(req.body, newPostSchema, (err, value) => {
+exports.post = (req, res, next) => {
+	Joi.validate(req.body, postSchema, (err, value) => {
 		if(err) return next({
 			type: 'error',
 			name: 'NewPostError',

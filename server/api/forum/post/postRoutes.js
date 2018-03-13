@@ -6,12 +6,12 @@ const controller = require('./postController');
 
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)
-	.post(validate.newPost, controller.post)
+	.post(validate.post, controller.post)
 // 	.post()
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)
-	.put()
+	.put([validate.post, authLevel(3)], controller.put)
 	.delete()
 
 

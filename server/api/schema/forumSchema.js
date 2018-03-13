@@ -14,7 +14,7 @@ schema.getPostByCategory = Joi.object().keys({
 	category: Joi.number().integer().required(),
 })
 
-schema.newPostSchema = Joi.object().keys({
+schema.postSchema = Joi.object().keys({
 	title: Joi.string().required(),
 	body: Joi.string().required(),
 	category_id: Joi.number().integer().required(),

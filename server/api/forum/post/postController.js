@@ -43,7 +43,7 @@ exports.getOne = (req, res, next) => {
 				return next({
 					type: 'error',
 					name: 'SinglePostError',
-					message: 'The post you are trying to access does not exists or you do not have the proper authorization'
+					message: 'The post you are trying to access does not exist or you do not have the proper authorization'
 				})
 			}
 			res.status(200).send({

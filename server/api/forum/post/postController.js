@@ -28,11 +28,28 @@ exports.post = (req, res, next) => {
 				})
 			} else {
 				res.status(201).send({
-					type: 'success',
 					newToken: req.newToken,
 					insertId: result.insertId
 				})
 			}
 		})
 		.catch(err => console.log(err))
+}
+
+exports.getOne = (req, res, next) => {
+	Post.findById(req.params.id, req.auth_level)
+		.then( result => {
+			if(result.length == 0) {
+				return next({
+					type: 'error',
+					name: 'SinglePostError',
+					message: 'The post you are trying to access does not exists or you do not have the proper authorization'
+				})
+			}
+			res.status(200).send({
+				newToken: req.newToken,
+				post: result[0]
+			});
+		})
+		.catch( err => next(err))
 }

@@ -10,7 +10,7 @@ router.route('/')
 // 	.post()
 
 router.route('/:id')
-	.get()
+	.get(validate.idIsNumber, controller.getOne)
 	.put()
 	.delete()
 

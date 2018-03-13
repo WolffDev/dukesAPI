@@ -40,3 +40,25 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 		[categoryId, authLevel]
 	);
 }
+
+exports.save = (data, category_id, authLevel) => {
+	const dataArray = Object.values(data);
+	const newDataArray = [];
+	dataArray.map( data => {
+		newDataArray.push(`'${data}'`)
+	});
+
+	return queryData(`
+		INSERT INTO 
+			app_posts(title, body, category_id, user_name, user_id) 
+		SELECT ${newDataArray.toString()}
+		FROM
+			app_categories AS ac
+		WHERE 
+			ac.category_id = ?
+		AND 
+			ac.auth_level <= ?
+		`,
+		[category_id, authLevel]
+	)
+}

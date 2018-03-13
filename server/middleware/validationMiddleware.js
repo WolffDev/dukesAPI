@@ -1,6 +1,11 @@
 const logger = require('../util/logger');
 const Joi = require('joi');
-const { categoryPostSchema, idIsNumber, postPostSchema, getPostByCategory } = require('../api/schema/forumSchema');
+const { 
+	categoryPostSchema, 
+	idIsNumber, 
+	newPostSchema, 
+	getPostByCategory 
+} = require('../api/schema/forumSchema');
 
 exports.categoryPost = (req, res, next) => {
 	if(req.body.auth_level > req.auth_level) {
@@ -34,8 +39,8 @@ exports.idIsNumber = (req, res, next) => {
 	})
 }
 
-exports.postPost = (req, res, next) => {
-	Joi.validate(req.body, postPostSchema, (err, value) => {
+exports.newPost = (req, res, next) => {
+	Joi.validate(req.body, newPostSchema, (err, value) => {
 		if(err) return next({
 			type: 'error',
 			name: 'NewPostError',

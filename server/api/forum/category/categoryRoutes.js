@@ -10,7 +10,7 @@ router.route('/')
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne) 
-	.put([validate.idIsNumber, validate.categoryPost, authLevel()], controller.put)
+	.put([validate.idIsNumber, validate.categoryPost, authLevel(3)], controller.put)
 	.delete([validate.idIsNumber, authLevel(3)], controller.delete)
 
 

@@ -6,12 +6,13 @@ const controller = require('./postController');
 
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)
+	.post(validate.newPost, controller.post)
 // 	.post()
 
-// router.route('/:id')
-// 	.get()
-// 	.put()
-// 	.delete()
+router.route('/:id')
+	.get()
+	.put()
+	.delete()
 
 
 module.exports = router;

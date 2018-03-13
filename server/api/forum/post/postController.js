@@ -17,3 +17,22 @@ exports.get = (req, res, next) => {
 		})
 		.catch(err => next(err))
 }
+exports.post = (req, res, next) => {
+	Post.save(req.body, req.body.category_id, req.auth_level)
+		.then( result => {
+			if(result.affectedRows == 0) {
+				return next({
+					type: 'error',
+					name: 'NewPostErrorInvalidCategory',
+					message: 'Cannot create a new post. Either you are trying to create a new post with a category you are not authorized to, or something else went wrong'
+				})
+			} else {
+				res.status(201).send({
+					type: 'success',
+					newToken: req.newToken,
+					insertId: result.insertId
+				})
+			}
+		})
+		.catch(err => console.log(err))
+}

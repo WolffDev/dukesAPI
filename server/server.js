@@ -9,7 +9,7 @@ require('./middleware/appMiddleware')(app);
 
 // middleware that accepts token in URI query and set it to the request header
 app.use(checkToken());
-app.use('/api', api);
+app.use('/api/v1', api);
 
 
 // Error handling

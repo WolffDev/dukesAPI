@@ -88,3 +88,7 @@ exports.save = (user_id, data, category_id, authLevel) => {
 		[category_id, authLevel]
 	)
 }
+
+exports.update = () => {
+	
+}

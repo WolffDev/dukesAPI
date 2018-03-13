@@ -50,17 +50,17 @@ exports.getAll = (authLevel) => {
 	);
 }
 
-exports.save = (category) => {
+exports.save = (user_id, category) => {
 	return queryData(`
 		INSERT INTO
 			app_categories 
 		SET ?
 		`, 
-		category
+		Object.assign(category, {'created_by': user_id})
 	);
 }
 
-exports.update = (category, id, authLevel) => {
+exports.update = (category, id, user_id, authLevel) => {
 	return queryData(`
 		UPDATE 
 			app_categories 
@@ -73,16 +73,16 @@ exports.update = (category, id, authLevel) => {
 		AND
 			auth_level <= ?
 		`, 
-		[category, id, authLevel]
+		[Object.assign(category, {'updated_by': user_id}), id, authLevel]
 	)
 }
 
-exports.remove = (id, authLevel) => {
+exports.remove = (id, user_id, authLevel) => {
 	return queryData(`
 		UPDATE
 			app_categories
 		SET
-			soft_delete = 1
+			?
 		WHERE
 			category_id = ?
 		AND
@@ -90,6 +90,6 @@ exports.remove = (id, authLevel) => {
 		AND
 			auth_level <= ?
 		`, 
-		[id, authLevel]
+		[Object.assign({'soft_delete': 1, 'deleted_by': user_id}), id, authLevel]
 	)
 }

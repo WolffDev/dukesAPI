@@ -29,7 +29,7 @@ exports.getOne = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
-	Category.save(req.body)
+	Category.save(req.user_id, req.body)
 		.then( category => {
 			if(category.affectedRows == 0) {
 				next({
@@ -47,9 +47,9 @@ exports.post = (req, res, next) => {
 		})
 		.catch( err => next(err))
 }
-
+// TODO: pass user_id on put and delete
 exports.put = (req, res, next) => {
-	Category.update(req.body, req.params.id, req.auth_level)
+	Category.update(req.body, req.params.id, req.user_id, req.auth_level)
 		.then( result => {
 			if(result.affectedRows == 0) {
 				next({
@@ -69,7 +69,7 @@ exports.put = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-	Category.remove(req.params.id, req.auth_level)
+	Category.remove(req.params.id, req.user_id, req.auth_level)
 		.then( result => {
 			if(result.affectedRows == 0) {
 				next({

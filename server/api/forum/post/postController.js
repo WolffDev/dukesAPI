@@ -55,5 +55,10 @@ exports.getOne = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-	res.status(200).send(Object.assign(req.params, req.body))
+	Post.update()
+		.then( result => {
+			
+			res.status(200).send(Object.assign(req.params, req.body))
+		}) 
+		.catch( err => next(err))
 }

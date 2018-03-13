@@ -66,8 +66,9 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 	);
 }
 
-exports.save = (data, category_id, authLevel) => {
-	const dataArray = Object.values(data);
+exports.save = (user_id, data, category_id, authLevel) => {
+	const newData = Object.assign(data, {user_id})
+	const dataArray = Object.values(newData);
 	const newDataArray = [];
 	dataArray.map( data => {
 		newDataArray.push(`'${data}'`)

@@ -45,6 +45,7 @@ exports.verifyToken = () => {
 				AuthModel.checkRefreshToken(userId, refreshToken)
 					.then( modelRes => {
 						// TODO: handle if refreshToken is inactive
+						// TODO: handle is user account is hacked!!! -> write a log file with location and ip info
 						// res.send(modelRes[0]);return;
 						if(modelRes[0].length == 0) {
 							next({

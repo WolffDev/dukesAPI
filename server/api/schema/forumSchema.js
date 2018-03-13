@@ -19,7 +19,6 @@ schema.postSchema = Joi.object().keys({
 	body: Joi.string().required(),
 	category_id: Joi.number().integer().required(),
 	user_name: Joi.string().required(),
-	user_id: Joi.number().integer().required(),
 })
 
 module.exports = schema;

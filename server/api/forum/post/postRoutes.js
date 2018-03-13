@@ -11,7 +11,8 @@ router.route('/')
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)
-	.put([validate.post, authLevel(3)], controller.put)
+	// TODO: check if Post creator or auth >= 3
+	.put(validate.post, controller.put)
 	.delete()
 
 

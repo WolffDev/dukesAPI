@@ -17,6 +17,7 @@ exports.checkToken = () => {
 // Verifies the token or send an error
 exports.verifyToken = () => {
 	return (req, res, next) => {
+		// TODO: handle if no authorization header is present
 		let token = req.headers.authorization.split('Bearer ')[1];
 		jwt.verify(token, config.secret.jwt, (err, decoded) => {
 			// Token is valid.

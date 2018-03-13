@@ -16,19 +16,27 @@ function queryData(q, data = []) {
 	})
 }
 
-exports.getPostByCategory = (authLevel) => {
+exports.getPostByCategory = (categoryId, authLevel) => {
 	return queryData(`
-		SELECT 
-			post_id, 
-			title,
-			body,
-			user_name
-		FROM 
-			app_posts 
-		WHERE 
-			category_id = ? 
-		AND soft_delete = 0
-		`, 
-		id
+		SELECT
+			app_posts.post_id,
+			app_posts.title,
+			app_posts.body,
+			app_posts.user_name,
+			app_posts.created
+		FROM
+			app_posts
+		LEFT JOIN
+			app_categories
+		ON
+			app_posts.category_id = app_categories.category_id
+		WHERE
+			app_posts.soft_delete = 0
+		AND
+			app_posts.category_id = ?
+		AND
+			app_categories.auth_level <= ?
+		`,
+		[categoryId, authLevel]
 	);
 }

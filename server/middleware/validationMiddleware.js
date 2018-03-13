@@ -50,8 +50,8 @@ exports.getPostByCategory = (req, res, next) => {
 	Joi.validate(req.query, getPostByCategory, (err, value) => {
 		if(err) return next({
 			type: 'error',
-			name: 'GetPostByGategoryError',
-			message: 'Check the query paramater',
+			name: 'GetPostByCategoryError',
+			message: 'Check the query paramater, requires query parameter, ie. /posts?category=1 etc',
 			details: err
 		});
 		next();

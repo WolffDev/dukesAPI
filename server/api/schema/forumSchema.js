@@ -7,7 +7,19 @@ schema.categoryPostSchema = Joi.object().keys({
 });
 
 schema.idIsNumber = Joi.object().keys({
-	id: Joi.number().integer().required()
+	id: Joi.number().integer().required(),
+});
+
+schema.getPostByCategory = Joi.object().keys({
+	category: Joi.number().integer().required(),
+})
+
+schema.postPostSchema = Joi.object().keys({
+	title: Joi.string().required(),
+	body: Joi.string().required(),
+	category_id: Joi.number().integer().required(),
+	user_name: Joi.string().required(),
+	user_id: Joi.number().integer().required(),
 })
 
 module.exports = schema;

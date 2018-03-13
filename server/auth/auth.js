@@ -43,6 +43,7 @@ exports.verifyToken = () => {
 				let refreshToken = decoded.data.user.refresh_token;
 				AuthModel.checkRefreshToken(userId, refreshToken)
 					.then( modelRes => {
+						// TODO: handle if refreshToken is inactive
 						// res.send(modelRes[0]);return;
 						if(modelRes[0].length == 0) {
 							next({

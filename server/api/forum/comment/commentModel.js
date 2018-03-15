@@ -69,13 +69,39 @@ exports.save = (data, post_id, user_id) => {
 	)
 }
 
-exports.put = (data, comment_id) => {
+exports.put = (data, user_id, comment_id) => {
+	return queryData(`
+		UPDATE
+			app_comments
+		SET
+			?
+		WHERE
+			comment_id = ?
+		AND
+			soft_delete = 0
+		`,
+		[Object.assign(data, {updated_by: user_id}), comment_id]
+	)
+}
 
+exports.remove = (comment_id, user_id) => {
+	return queryData(`
+		UPDATE
+			app_comments
+		SET
+			?
+		WHERE
+			comment_id = ?
+		AND
+			soft_delete = 0
+		`, 
+		[{soft_delete: 1, deleted_by: user_id}, comment_id]
+	)
 }
 
 
 exports.getCommentAuthor = (comment_id) => {
-	return queryDate(`
+	return queryData(`
 		SELECT
 			user_id
 		FROM

@@ -43,3 +43,39 @@ exports.post = (req, res, next) => {
 		})
 		.catch(err => next(err))
 }
+
+exports.put = (req, res, next) => {
+	Comment.put(req.body, req.user_id, req.params.id)
+		.then(result => {
+			if(result.affectedRows >= 0) {
+				res.status(200).send({
+					newtoken: req.newToken,
+					message: 'Comment Updated'
+				})
+			} else {
+				return next({
+					type: 'error',
+					name: 'UpdateCommentError',
+					message: 'Something went wrong, try updating the comment again'
+				})
+			}
+		})
+		.catch(err => next(err))
+}
+
+exports.delete = (req, res, next) => {
+	Comment.remove(req.params.id, req.user_id)
+		.then(result => {
+			if(result.affectedRows == 0) return next({
+				type: 'error',
+				name: 'DeleteNoCommentExists',
+				message: 'You are trying to delete a comment that does not exists'
+			})
+			res.status(200).send({
+				newToken: req.newToken,
+				type: 'success',
+				message: 'Comment successfully deleted'
+			})
+		})
+		.catch(err => next(err))
+}

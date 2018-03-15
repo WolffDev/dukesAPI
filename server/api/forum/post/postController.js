@@ -55,10 +55,18 @@ exports.getOne = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-	Post.update()
-		.then( result => {
+	// Post.update()
+	// 	.then( result => {
 			
 			res.status(200).send(Object.assign(req.params, req.body))
-		}) 
+		// }) 
+		// .catch( err => next(err))
+}
+
+exports.delete = (req, res, next) => {
+	Post.remove(req.params.id, req.user_id)
+		.then( result => {
+			console.log(result);
+		})
 		.catch( err => next(err))
 }

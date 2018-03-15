@@ -13,7 +13,7 @@ router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)
 	// TODO: check if Post creator or auth >= 3
 	.put(validate.post, controller.put)
-	.delete()
+	.delete(validate.idIsNumber, controller.delete)
 
 
 module.exports = router;

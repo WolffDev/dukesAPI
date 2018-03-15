@@ -2,6 +2,7 @@ const Category = require('./categoryModel');
 const logger = require('../../../util/logger');
 
 exports.get = (req, res, next) => {
+	console.log(req.query.check);
 	Category.getAll(req.auth_level)
 		.then( categories => {
 			res.status(200).send({
@@ -47,7 +48,6 @@ exports.post = (req, res, next) => {
 		})
 		.catch( err => next(err))
 }
-// TODO: pass user_id on put and delete
 exports.put = (req, res, next) => {
 	Category.update(req.body, req.params.id, req.user_id, req.auth_level)
 		.then( result => {
@@ -85,4 +85,12 @@ exports.delete = (req, res, next) => {
 				})
 			}
 		})
+}
+
+exports.checkPermission = (req, res, next) => {
+	Category.getAuthCategories(req.auth_level)
+		.then( result => {
+			console.log(result);
+		})
+		.catch( err => next(err))
 }

@@ -93,3 +93,16 @@ exports.remove = (id, user_id, authLevel) => {
 		[Object.assign({'soft_delete': 1, 'deleted_by': user_id}), id, authLevel]
 	)
 }
+
+exports.getAuthCategories = (id) => {
+	return queryData(`
+		SELECT
+			category_id
+		FROM
+			app_categories
+		WHERE
+			auth_level <= ?
+		`,
+		id
+	)
+}

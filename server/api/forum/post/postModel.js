@@ -74,9 +74,17 @@ exports.save = (user_id, data, category_id, authLevel) => {
 		newDataArray.push(`'${data}'`)
 	});
 
+// https://dba.stackexchange.com/questions/182789/insert-into-table-where-boolean-value-in-another-table-is-true
 	return queryData(`
-		INSERT INTO 
-			app_posts(title, body, category_id, user_name, user_id) 
+		INSERT INTO
+			app_posts
+			( 
+				title, 
+				body, 
+				category_id, 
+				user_name, 
+				user_id
+			) 
 		SELECT ${newDataArray.toString()}
 		FROM
 			app_categories AS ac
@@ -91,4 +99,19 @@ exports.save = (user_id, data, category_id, authLevel) => {
 
 exports.update = () => {
 	
+}
+
+exports.remove = (post_id, user_id) => {
+	return queryData(`
+		UPDATE
+			app_posts
+		SET
+			?
+		WHERE
+			post_id = ?
+		AND
+			soft_delete = 0
+		`, 
+		[{soft_delete: 1, deleted_by: user_id}, post_id]
+	)
 }

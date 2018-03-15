@@ -24,4 +24,9 @@ schema.getCommentByPost = Joi.object().keys({
 	post_id: Joi.number().integer().required(),
 })
 
+schema.newComment = Joi.object().keys({
+	text: Joi.string().required(),
+	user_name: Joi.string().required()
+})
+
 module.exports = schema;

@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const validate = require('../../../middleware/validationMiddleware');
 const controller = require('./commentController');
-const getComments = require('../../../middleware/comment/getCommentsByPostMiddleware');
+const postAndAuthCheck = require('../../../middleware/comment/postAndAuthCheck');
 
 router.route('/')
-	.get([validate.getCommentByPost, getComments], controller.get)
-	.post()
+	.get([validate.getCommentByPost, postAndAuthCheck], controller.get)
+	.post([validate.getCommentByPost, validate.newComment, postAndAuthCheck], controller.post)
 
 router.route('/:id')
 	.get()

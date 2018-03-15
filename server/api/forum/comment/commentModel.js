@@ -35,3 +35,14 @@ exports.get = (post_id) => {
 		post_id
 	)
 }
+
+exports.save = (data, post_id, user_id) => {
+	return queryData(`
+		INSERT INTO
+			app_comments
+		SET
+			?
+		`,
+		Object.assign(data, {user_id, post_id})
+	)
+}

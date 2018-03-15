@@ -5,7 +5,8 @@ const {
 	idIsNumber, 
 	postSchema, 
 	getPostByCategory ,
-	getCommentByPost
+	getCommentByPost,
+	newComment
 } = require('../api/schema/forumSchema');
 
 exports.categoryPost = (req, res, next) => {
@@ -69,7 +70,19 @@ exports.getCommentByPost = (req, res, next) => {
 		if(err) return next({
 			type: 'error',
 			name: 'GetCommentByPostError',
-			message: 'Check the query paramater, requires query parameter, ie. /comment?post=1 etc',
+			message: 'Check the query paramater, requires query parameter, ie. /comment?post_id=1 etc',
+			details: err
+		});
+		next();
+	})
+}
+
+exports.newComment = (req, res, next) => {
+	Joi.validate(req.body, newComment, (err, value) => {
+		if(err) return next({
+			type: 'error',
+			name: 'NewCommentError',
+			message: 'You are missing some values, in order to post a comment',
 			details: err
 		});
 		next();

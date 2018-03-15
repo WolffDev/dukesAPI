@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
 				return next({
 					type: 'error',
 					name: 'CommentInvalidAuth',
-					message: 'You are not allowed to view comments from this post'
+					message: 'Your authentication is invalid'
 				})
 			}
 		})

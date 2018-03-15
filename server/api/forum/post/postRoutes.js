@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const validate = require('../../../middleware/validationMiddleware');
-const authLevel = require('../../../middleware/validateAuthLevel');
 const logger = require('../../../util/logger');
 const controller = require('./postController');
+const updatePost = require('../../../middleware/updatePostMiddleware')
 
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)
@@ -11,8 +11,7 @@ router.route('/')
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)
-	// TODO: check if Post creator or auth >= 3
-	.put(validate.post, controller.put)
+	.put([validate.post, updatePost], controller.put)
 	.delete(validate.idIsNumber, controller.delete)
 
 

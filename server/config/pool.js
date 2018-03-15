@@ -3,7 +3,7 @@ const mysql = require('mysql2');
 
 const pool = mysql.createPool({
 	// socketPath: config.db.socket,
-	connectionLimit: 5,
+	connectionLimit: 50,
 	host: config.db.host,
 	user: config.db.user,
 	password: config.db.password,

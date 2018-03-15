@@ -15,9 +15,6 @@ router.route('/')
 	.get(controller.get)
 	.post([validate.categoryPost, authLevel(3)], controller.post)
 	
-router.route('/check')
-	.get(controller.checkPermission)
-	
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne) 
 	.put([validate.idIsNumber, validate.categoryPost, authLevel(3)], controller.put)

@@ -86,11 +86,3 @@ exports.delete = (req, res, next) => {
 			}
 		})
 }
-
-exports.checkPermission = (req, res, next) => {
-	Category.getAuthCategories(req.auth_level)
-		.then( result => {
-			console.log(result);
-		})
-		.catch( err => next(err))
-}

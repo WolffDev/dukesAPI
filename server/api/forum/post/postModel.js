@@ -97,8 +97,19 @@ exports.save = (user_id, data, category_id, authLevel) => {
 	)
 }
 
-exports.update = () => {
-	
+exports.update = (data, post_id, user_id) => {
+	return queryData(`
+		UPDATE
+			app_posts
+		SET
+			?
+		WHERE
+			post_id = ?
+		AND
+			soft_delete = 0
+		`,
+		[Object.assign(data, {updated_by: user_id}), post_id]
+	)
 }
 
 exports.remove = (post_id, user_id) => {
@@ -113,5 +124,18 @@ exports.remove = (post_id, user_id) => {
 			soft_delete = 0
 		`, 
 		[{soft_delete: 1, deleted_by: user_id}, post_id]
+	)
+}
+
+exports.getAutherFromPost = (post_id) => {
+	return queryData(`
+		SELECT
+			user_id
+		FROM
+			app_posts
+		WHERE
+			post_id = ?
+		`,
+		post_id
 	)
 }

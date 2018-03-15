@@ -55,12 +55,20 @@ exports.getOne = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-	// Post.update()
-	// 	.then( result => {
-			
-			res.status(200).send(Object.assign(req.params, req.body))
-		// }) 
-		// .catch( err => next(err))
+	Post.update(req.body, req.params.id, req.user_id)
+		.then( result => {
+			if(result.affectedRows == 0) next({
+				type: 'error',
+				name: 'UpdateError',
+				message: 'Something went wrong, try again or contact the admin'
+			})
+			res.status(201).send({
+				newToken: req.newToken,
+				type: 'success',
+				message: 'Post succesfully updated'
+			});
+		}) 
+		.catch( err => next(err))
 }
 
 exports.delete = (req, res, next) => {

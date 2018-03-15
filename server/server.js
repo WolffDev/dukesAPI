@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const router = require('express').Router();
-const checkToken = require('./auth/auth').checkToken;
+// const checkToken = require('./auth/auth').checkToken;
 const api = require('./api/api');
 const config = require('./config/config');
 const logger = require('../server/util/logger');
 require('./middleware/appMiddleware')(app);
 
 // middleware that accepts token in URI query and set it to the request header
-app.use(checkToken());
+// app.use(checkToken());
 app.use('/api/v1', api);
 
 

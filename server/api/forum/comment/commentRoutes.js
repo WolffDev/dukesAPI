@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const validate = require('../../../middleware/validationMiddleware');
+const authLevel = require('../../../middleware/validateAuthLevel');
 const controller = require('./commentController');
 const postAndAuthCheck = require('../../../middleware/comment/postAndAuthCheck');
 
@@ -8,7 +9,7 @@ router.route('/')
 	.post([validate.getCommentByPost, validate.newComment, postAndAuthCheck], controller.post)
 
 router.route('/:id')
-	.get()
+	.get([validate.idIsNumber, authLevel(3)], controller.getOne)
 	.put()
 	.delete()
 

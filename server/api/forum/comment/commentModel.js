@@ -22,7 +22,9 @@ exports.get = (post_id) => {
 			comment_id,
 			text,
 			user_name,
-			post_id
+			created,
+			post_id,
+			user_id
 		FROM
 			app_comments
 		WHERE
@@ -36,6 +38,26 @@ exports.get = (post_id) => {
 	)
 }
 
+exports.findById = (comment_id) => {
+	return queryData(`
+		SELECT
+			text,
+			user_id,
+			created,
+			user_name,
+			post_id
+		FROM
+			app_comments
+		WHERE
+			comment_id = ?
+		AND
+			soft_delete = 0
+		LIMIT 1
+		`,
+		comment_id
+	)
+}
+
 exports.save = (data, post_id, user_id) => {
 	return queryData(`
 		INSERT INTO
@@ -44,5 +66,23 @@ exports.save = (data, post_id, user_id) => {
 			?
 		`,
 		Object.assign(data, {user_id, post_id})
+	)
+}
+
+exports.put = (data, comment_id) => {
+
+}
+
+
+exports.getCommentAuthor = (comment_id) => {
+	return queryDate(`
+		SELECT
+			user_id
+		FROM
+			app_comments
+		WHERE
+			comment_id = ?
+		`,
+		comment_id
 	)
 }

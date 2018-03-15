@@ -11,6 +11,19 @@ exports.get = (req, res, next) => {
 		.catch(err => next(err))
 }
 
+exports.getOne = (req, res, next) => {
+	Comment.findById(req.params.id)
+		.then(result => {
+			if(result.length == 0) return next({
+				type: 'error',
+				name: 'InvalidComment',
+				message: 'The comment does not exists'
+			})
+			res.status(200).send(Object.assign({}, {newToken: req.newToken}, result[0]))
+		})
+		.catch(err => next(err))
+}
+
 exports.post = (req, res, next) => {
 	Comment.save(req.body, req.query.post_id, req.user_id)
 		.then( result => {

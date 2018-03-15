@@ -139,3 +139,20 @@ exports.getAutherFromPost = (post_id) => {
 		post_id
 	)
 }
+
+exports.getAuthLevelFromPost = (post_id) => {
+	return queryData(`
+		SELECT
+			ac.auth_level
+		FROM
+			app_categories AS ac
+		LEFT JOIN
+			app_posts as ap
+		ON
+			ac.category_id = ap.category_id
+		WHERE
+			ap.post_id = ?
+		`,
+		post_id
+	)
+}

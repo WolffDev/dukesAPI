@@ -74,7 +74,16 @@ exports.put = (req, res, next) => {
 exports.delete = (req, res, next) => {
 	Post.remove(req.params.id, req.user_id)
 		.then( result => {
-			console.log(result);
+			if(result.affectedRows == 0) return next({
+				type: 'error',
+				name: 'DeleteNoPostExists',
+				message: 'You are trying to delete a post that does not exists'
+			})
+			res.status(200).send({
+				newToken: req.newToken,
+				type: 'success',
+				message: 'Post successfully deleted'
+			})
 		})
 		.catch( err => next(err))
 }

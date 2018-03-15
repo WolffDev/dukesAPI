@@ -8,7 +8,6 @@ const deletePost = require('../../../middleware/post/deletePostMiddleware');
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)
 	.post(validate.post, controller.post)
-// 	.post()
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)

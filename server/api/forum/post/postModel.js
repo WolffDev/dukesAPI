@@ -61,6 +61,8 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 			ap.category_id = ?
 		AND
 			ac.auth_level <= ?
+		ORDER BY
+			ap.created ASC
 		`,
 		[categoryId, authLevel]
 	);

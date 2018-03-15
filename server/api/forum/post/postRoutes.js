@@ -2,8 +2,8 @@ const router = require('express').Router();
 const validate = require('../../../middleware/validationMiddleware');
 const logger = require('../../../util/logger');
 const controller = require('./postController');
-const updatePost = require('../../../middleware/updatePostMiddleware');
-const deletePost = require('../../../middleware/deletePostMiddleware');
+const updatePost = require('../../../middleware/post/updatePostMiddleware');
+const deletePost = require('../../../middleware/post/deletePostMiddleware');
 
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)

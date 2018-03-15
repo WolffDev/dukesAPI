@@ -1,5 +1,5 @@
-const { getAuthCategories } = require('../api/forum/category/categoryModel');
-const { getAutherFromPost } = require('../api/forum/post/postModel');
+const { getAuthCategories } = require('../../api/forum/category/categoryModel');
+const { getAutherFromPost } = require('../../api/forum/post/postModel');
 
 module.exports = (req, res, next) => {
 	getAuthCategories(req.auth_level)
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
 					next({
 						type: 'error',
 						name: 'InvalidAuthorId',
-						message: 'It seems that you are not the author to this post'
+						message: 'You are not the author of this post'
 					})
 				})
 				.catch( err => next(err))

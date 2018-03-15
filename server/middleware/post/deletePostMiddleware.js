@@ -1,4 +1,4 @@
-const { getAutherFromPost, getAuthLevelFromPost } = require('../api/forum/post/postModel');
+const { getAutherFromPost, getAuthLevelFromPost } = require('../../api/forum/post/postModel');
 
 module.exports = (req, res, next) => {
 	getAutherFromPost(req.params.id)

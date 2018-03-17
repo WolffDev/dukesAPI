@@ -78,7 +78,8 @@ exports.findById = (eventId) => {
 		eventId
 	)
 }
-
+// TODO: different endpoint that excludes reserved spot (maybe more accurate amount?)
+// AND reserved != 2
 exports.eventAmount = (eventId) => {
 	return queryData(`
 		SELECT 

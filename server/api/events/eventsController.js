@@ -7,7 +7,16 @@ exports.get = (req, res, next) => {
 	}
 	Events.get(+offset)
 		.then(result => {
-			res.send(result)
+			if(result.length == 0) return next({
+				type: 'error',
+				name: 'EventsQueryOffset',
+				message: 'There is no events with the offset provided'
+			})
+			res.status(200).send(Object.assign({
+					newToken: req.newToken,
+					events: result
+				})
+			)
 		})
 		.catch(err => next(err))
 }

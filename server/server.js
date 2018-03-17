@@ -10,14 +10,14 @@ require('./middleware/appMiddleware')(app);
 // middleware that accepts token in URI query and set it to the request header
 // app.use(checkToken());
 
-app.use('/', (req, res, next) => {
+app.use('/api', (req, res, next) => {
 	res.status(200).send({
 		title: 'Welcome',
 		message: 'This is DukesDenmark API.\nYou are welcome to contact DukesDenmark if you wish to create a cooperation or something similar'
 	})
 })
 
-app.use('/v1', api);
+app.use('/api/v1', api);
 
 
 // Error handling

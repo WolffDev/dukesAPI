@@ -3,7 +3,7 @@ const config = {
 	"secret": {
     	jwt: process.env.JWT
 	},
-	"logging": process.env.NODE_ENV == 'dev' ? true : false,
+	"logging": process.env.NODE_ENV == 'development' ? true : false,
 	"env": process.env.NODE_ENV,
 	"db": {
 		memberDatabase: process.env.DB_MEMBER_DATABASE,

@@ -1,4 +1,4 @@
-const pool = require('../../../config/pool');
+const pool = require('../../../config/ddPool');
 const logger = require('../../../util/logger');
 
 function queryData(q, data = []) {

@@ -6,6 +6,7 @@ const config = {
 	"logging": process.env.NODE_ENV == 'dev' ? true : false,
 	"env": process.env.NODE_ENV,
 	"db": {
+		memberDatabase: process.env.DB_MEMBER_DATABASE,
 		database: process.env.DB_DATABASE,
 		user: process.env.DB_USER,
 		password: process.env.DB_PASSWORD,

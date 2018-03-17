@@ -9,6 +9,8 @@ const {
 	newComment
 } = require('../api/schema/forumSchema');
 
+const {eventsQuery} = require('../api/schema/eventsSchema');
+
 exports.categoryPost = (req, res, next) => {
 	if(req.body.auth_level > req.auth_level) {
 		return next({
@@ -83,6 +85,18 @@ exports.newComment = (req, res, next) => {
 			type: 'error',
 			name: 'NewCommentError',
 			message: 'You are missing some values, in order to post a comment',
+			details: err
+		});
+		next();
+	})
+}
+
+exports.eventsQuery = (req, res, next) => {
+	Joi.validate(req.query, eventsQuery, (err, value) => {
+		if(err) return next({
+			type: 'error',
+			name: 'EventsQueryError',
+			message: 'You did not pass a valid number',
 			details: err
 		});
 		next();

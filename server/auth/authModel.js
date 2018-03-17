@@ -1,4 +1,4 @@
-const pool = require('../config/pool');
+const pool = require('../config/ddPool');
 
 exports.checkRefreshToken = (id, refreshToken) => {
 	return new Promise((resolve, reject) => {

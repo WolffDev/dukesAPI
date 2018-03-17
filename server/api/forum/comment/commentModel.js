@@ -1,4 +1,4 @@
-const pool = require('../../../config/pool');
+const pool = require('../../../config/ddPool');
 
 function queryData(q, data = []) {
 	return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 const config = require('./config');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
 const pool = mysql.createPool({
 	// socketPath: config.db.socket,
@@ -7,7 +7,7 @@ const pool = mysql.createPool({
 	host: config.db.host,
 	user: config.db.user,
 	password: config.db.password,
-	database: config.db.database
+	database: config.db.memberDatabase
 });
 
 module.exports = pool;

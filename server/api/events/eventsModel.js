@@ -37,3 +37,57 @@ exports.get = (offset) => {
 		offset
 	)
 }
+
+exports.findById = (eventId) => {
+	return queryData(`
+		SELECT
+			e.event,
+			e.time_from,
+			e.time_to,
+			es.seat,
+			CONCAT(m.name, ' ', m.surname) AS name,
+			m.email,
+			m.nickname, 
+			m.username, 
+			m.netpass, 
+			m.lan_ip, 
+			dun.name AS discord_name
+		FROM
+			event e
+		LEFT JOIN 
+			event_signup es
+		ON 
+			e.id = es.event_id
+		LEFT JOIN 
+			member m
+		ON 
+			es.member_id = m.id
+		LEFT JOIN 
+		discordDukesMember as ddm
+		ON 
+			m.id = ddm.member_id
+		LEFT JOIN 
+			discordUsername as dun
+		ON 
+			ddm.discord_id = dun.id
+		WHERE
+			m.email IS NOT NULL
+		AND
+			e.id = ?
+		`,
+		eventId
+	)
+}
+
+exports.eventAmount = (eventId) => {
+	return queryData(`
+		SELECT 
+			COUNT(*) AS attendeeAmount 
+		FROM 
+			event_signup 
+		WHERE 
+			event_id = ?
+		`,
+		eventId
+	)
+}

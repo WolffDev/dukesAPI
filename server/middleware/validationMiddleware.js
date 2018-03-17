@@ -9,7 +9,10 @@ const {
 	newComment
 } = require('../api/schema/forumSchema');
 
-const {eventsQuery} = require('../api/schema/eventsSchema');
+const { 
+	eventsQuery,
+	eventById
+} = require('../api/schema/eventsSchema');
 
 exports.categoryPost = (req, res, next) => {
 	if(req.body.auth_level > req.auth_level) {
@@ -97,6 +100,18 @@ exports.eventsQuery = (req, res, next) => {
 			type: 'error',
 			name: 'EventsQueryError',
 			message: 'You did not pass a valid number',
+			details: err
+		});
+		next();
+	})
+}
+
+exports.eventbyId = (req, res, next) => {
+	Joi.validate(req.params, eventById, (err, value) => {
+		if(err) return next({
+			type: 'error',
+			name: 'EventIdError',
+			message: 'You did not pass a valid event id',
 			details: err
 		});
 		next();

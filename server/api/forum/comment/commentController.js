@@ -4,7 +4,7 @@ exports.get = (req, res, next) => {
 	Comment.get(req.query.post_id)
 		.then( result => {
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				comments: result
 			})
 		})
@@ -19,7 +19,7 @@ exports.getOne = (req, res, next) => {
 				name: 'InvalidComment',
 				message: 'The comment does not exists'
 			})
-			res.status(200).send(Object.assign({}, {newToken: req.newToken}, result[0]))
+			res.status(200).send(Object.assign({}, {token: req.newToken}, result[0]))
 		})
 		.catch(err => next(err))
 }
@@ -29,7 +29,7 @@ exports.post = (req, res, next) => {
 		.then( result => {
 			if(result.affectedRows >= 0) {
 				res.status(201).send({
-					newtoken: req.newToken,
+					token: req.newToken,
 					message: 'New comment created',
 					commentId: result.insertId
 				})
@@ -49,7 +49,7 @@ exports.put = (req, res, next) => {
 		.then(result => {
 			if(result.affectedRows >= 0) {
 				res.status(200).send({
-					newtoken: req.newToken,
+					token: req.newToken,
 					message: 'Comment Updated'
 				})
 			} else {
@@ -72,7 +72,7 @@ exports.delete = (req, res, next) => {
 				message: 'You are trying to delete a comment that does not exists'
 			})
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				type: 'success',
 				message: 'Comment successfully deleted'
 			})

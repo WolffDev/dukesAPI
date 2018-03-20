@@ -13,7 +13,7 @@ exports.get = (req, res, next) => {
 				message: 'There is no events with the offset provided'
 			})
 			res.status(200).send(Object.assign({
-					newToken: req.newToken,
+					token: req.newToken,
 					events: result
 				})
 			)
@@ -32,7 +32,7 @@ exports.getOne = (req, res, next) => {
 				message: 'There is no event with the given id'
 			})
 			res.status(200).send(Object.assign({},
-				{newToken: req.newToken},
+				{token: req.newToken},
 				result[0][0],
 				{attendees: result[1]}
 				)

@@ -39,7 +39,8 @@ exports.getAll = (authLevel) => {
 	return queryData(`
 		SELECT 
 			category_id, 
-			title 
+			title,
+			auth_level 
 		FROM 
 			app_categories 
 		WHERE 

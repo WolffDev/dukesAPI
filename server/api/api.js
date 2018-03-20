@@ -13,9 +13,9 @@ router.get('/', verifyToken(),  (req, res, next) => {
 	res.status(200).send("/ virker");
 })
 
-router.get('/refresh-token', verifyToken(), (req, res, next) => {
-	res.status(200).send({token: req.newToken});
-})
+// router.get('/refresh-token', verifyToken(), (req, res, next) => {
+// 	res.status(200).send({token: req.newToken});
+// })
 
 router.use('/category', verifyToken(), categoryRouter);
 router.use('/posts', verifyToken(), postRouter);

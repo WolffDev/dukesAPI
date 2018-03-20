@@ -11,7 +11,7 @@ exports.get = (req, res, next) => {
 				})
 			}
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				posts: result
 			});
 		})
@@ -28,7 +28,7 @@ exports.post = (req, res, next) => {
 				})
 			} else {
 				res.status(201).send({
-					newToken: req.newToken,
+					token: req.newToken,
 					insertId: result.insertId
 				})
 			}
@@ -47,7 +47,7 @@ exports.getOne = (req, res, next) => {
 				})
 			}
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				post: result[0]
 			});
 		})
@@ -63,7 +63,7 @@ exports.put = (req, res, next) => {
 				message: 'Something went wrong, try again or contact the admin'
 			})
 			res.status(201).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				type: 'success',
 				message: 'Post succesfully updated'
 			});
@@ -80,7 +80,7 @@ exports.delete = (req, res, next) => {
 				message: 'You are trying to delete a post that does not exists'
 			})
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				type: 'success',
 				message: 'Post successfully deleted'
 			})

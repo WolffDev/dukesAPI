@@ -6,7 +6,7 @@ exports.get = (req, res, next) => {
 	Category.getAll(req.auth_level)
 		.then( categories => {
 			res.status(200).send({
-				newToken: req.newToken,
+				token: req.newToken,
 				categories: categories
 			});
 		})
@@ -22,8 +22,8 @@ exports.getOne = (req, res, next) => {
 				message: 'Wrong ID, there is no existing category with the given ID'
 			});
 			res.status(200).send({
-				newToken: req.newToken,
-				category: category
+				token: req.newToken,
+				category: category[0]
 			})
 		})
 		.catch(err => next(err))
@@ -40,7 +40,7 @@ exports.post = (req, res, next) => {
 				})
 			} else {
 				res.status(201).send({
-					newToken: req.newToken,
+					token: req.newToken,
 					type: "success",
 					message: "New category created"
 				})
@@ -59,7 +59,7 @@ exports.put = (req, res, next) => {
 				})
 			} else {
 				res.status(200).send({
-					newToken: req.newToken,
+					token: req.newToken,
 					type: "success",
 					message: "Category Updated"
 				})
@@ -79,7 +79,7 @@ exports.delete = (req, res, next) => {
 				})
 			} else {
 				res.status(200).send({
-					newToken: req.newToken,
+					token: req.newToken,
 					type: "success",
 					message: "Category Deleted"
 				})

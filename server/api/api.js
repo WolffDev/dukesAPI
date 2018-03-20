@@ -4,6 +4,7 @@ const categoryRouter = require('./forum/category/categoryRoutes');
 const postRouter = require('./forum/post/postRoutes');
 const commentRouter = require('./forum/comment/commentRoutes');
 const eventsRouter = require('./events/eventsRoutes');
+const newsRouter = require('./news/newsRoutes')
 
 const logger = require('../util/logger');
 
@@ -20,9 +21,7 @@ router.use('/category', verifyToken(), categoryRouter);
 router.use('/posts', verifyToken(), postRouter);
 router.use('/comment', verifyToken(), commentRouter);
 router.use('/events', verifyToken(), eventsRouter);
-
-
-
+router.use('/news', verifyToken(), newsRouter);
 
 module.exports = router;
 

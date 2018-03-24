@@ -18,7 +18,7 @@ exports.get = (req, res, next) => {
 		.catch(err => next(err))
 }
 exports.post = (req, res, next) => {
-	Post.save(req.user_id, req.body, req.body.category_id, req.auth_level)
+	Post.save(req.user_id, req.body)
 		.then( result => {
 			if(result.affectedRows == 0) {
 				return next({

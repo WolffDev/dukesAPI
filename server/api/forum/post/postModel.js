@@ -68,34 +68,15 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 	);
 }
 
-exports.save = (user_id, data, category_id, authLevel) => {
-	const newData = Object.assign(data, {user_id})
-	const dataArray = Object.values(newData);
-	const newDataArray = [];
-	dataArray.map( data => {
-		newDataArray.push(`'${data}'`)
-	});
+exports.save = (user_id, data) => {
 
-// https://dba.stackexchange.com/questions/182789/insert-into-table-where-boolean-value-in-another-table-is-true
 	return queryData(`
 		INSERT INTO
 			app_posts
-			( 
-				title, 
-				body, 
-				category_id, 
-				user_name, 
-				user_id
-			) 
-		SELECT ${newDataArray.toString()}
-		FROM
-			app_categories AS ac
-		WHERE 
-			ac.category_id = ?
-		AND 
-			ac.auth_level <= ?
+		SET
+			?
 		`,
-		[category_id, authLevel]
+		Object.assign(data, {user_id})
 	)
 }
 

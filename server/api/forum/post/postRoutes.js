@@ -4,10 +4,11 @@ const logger = require('../../../util/logger');
 const controller = require('./postController');
 const updatePost = require('../../../middleware/post/updatePostMiddleware');
 const deletePost = require('../../../middleware/post/deletePostMiddleware');
+const postPost = require('../../../middleware/post/postPostMiddleware');
 
 router.route('/')
 	.get(validate.getPostByCategory, controller.get)
-	.post(validate.post, controller.post)
+	.post([validate.post, postPost], controller.post)
 
 router.route('/:id')
 	.get(validate.idIsNumber, controller.getOne)

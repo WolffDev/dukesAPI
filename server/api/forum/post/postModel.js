@@ -50,7 +50,8 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 			ap.body,
 			ap.user_name,
 			ap.user_id,
-			ap.created
+			ap.created,
+			ap.category_id
 		FROM
 			app_posts AS ap
 		LEFT JOIN

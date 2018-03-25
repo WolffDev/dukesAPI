@@ -22,6 +22,7 @@ exports.findById = (postId, authLevel) => {
 			ap.title,
 			ap.body,
 			ap.user_name,
+			ap.user_id,
 			ap.created,
 			ac.title
 		FROM
@@ -48,6 +49,7 @@ exports.getPostByCategory = (categoryId, authLevel) => {
 			ap.title,
 			ap.body,
 			ap.user_name,
+			ap.user_id,
 			ap.created
 		FROM
 			app_posts AS ap
